@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'automail'
+puts Automail::VERSION

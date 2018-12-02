@@ -1,9 +1,17 @@
 RSpec.describe Automail do
-  it 'has a version number' do
-    expect(Automail::VERSION).not_to be nil
+  describe 'as a gem' do
+    it 'has a version number' do
+      expect(Automail::VERSION).not_to be nil
+    end
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  describe 'as a command line tool' do
+    it 'is executable' do
+      expected_output = Automail::VERSION
+
+      output = `ruby ./exe/automail`
+
+      expect(output).to include(expected_output)
+    end
   end
 end

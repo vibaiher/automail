@@ -31,11 +31,41 @@ RSpec.describe Automail do
           Carrer de Francesc Martínez 2, 46020 València
           https://goo.gl/maps/HAnZfTCTBo52
 
+          {signature}
+
           ##### MENSAJE ORIGINAL #####
 
           {original_message}
         TXT
       )
+    end
+  end
+
+  describe 'as a customizable mailer tool' do
+    it 'has some customizable fields' do
+      signature = <<~TXT
+        Un saludo,
+        Devscola
+      TXT
+      original_message = <<~TXT
+        Hola,
+
+        Me gustaría conocer la escuela.
+      TXT
+
+      configurable_fields = {
+        name: 'John Snow',
+        date: '04/12/2018',
+        time: '18:30',
+        original_message: original_message,
+        signature: signature
+      }
+      email = Automail.generate(configurable_fields)
+
+      expect(email).to include(configurable_fields[:name])
+      expect(email).to include(configurable_fields[:date])
+      expect(email).to include(configurable_fields[:time])
+      expect(email).to include(configurable_fields[:original_message])
     end
   end
 end
